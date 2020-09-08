@@ -12,6 +12,7 @@ import java.awt.BorderLayout;
 
 public class BaseballGamePanel {
 
+	private BaseballCanvas canvas;
 	private JFrame window;
 	private JTextField gameKeyField = new JTextField();
 	private JTextField guessField = new JTextField();
@@ -35,6 +36,21 @@ public class BaseballGamePanel {
 		guessField.setEditable(false);
 
 		cp.add(BorderLayout.NORTH, northPanel);
+
+		canvas = new BaseballCanvas(this);
+		cp.add(BorderLayout.CENTER, canvas);
+
+		JPanel southPanel = new JPanel();
+		southPanel.setLayout(new GridLayout(4, 3));
+
+		digitButtons = new JButton[10];
+		for (int i = 0; i < 10; i++) {
+			digitButtons[i] = new JButton("" + i);
+			southPanel.add(digitButtons[i]);
+		}
+		southPanel.add(playButton);
+		southPanel.add(exitButton);
+		cp.add(BorderLayout.SOUTH, southPanel);
 	}
 
 }
