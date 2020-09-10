@@ -34,6 +34,14 @@ public class MenuScreen {
 			window.pack();
 			window.setVisible(true);
 		});
+
+		drawingButton.addActionListener(event -> {
+			window.getContentPane().removeAll();
+			var panel = new BaseballGamePanel(window);
+			panel.init();
+			window.pack();
+			window.setVisible(true);
+		});
 	}
 
 }

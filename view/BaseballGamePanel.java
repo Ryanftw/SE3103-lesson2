@@ -7,10 +7,18 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import controller.BaseballKeyListener;
+import model.BaseballGame;
+
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 
 public class BaseballGamePanel {
+
+	public enum GameState {
+		READY, PLAYING, GAMEOVER
+	}
 
 	private BaseballCanvas canvas;
 	private JFrame window;
@@ -19,6 +27,9 @@ public class BaseballGamePanel {
 	private JButton[] digitButtons;
 	private JButton playButton = new JButton("Play Ball~~");
 	private JButton exitButton = new JButton("Exit");
+	private GameState gameState = GameState.READY;
+
+	private BaseballGame baseball;
 
 	public BaseballGamePanel(JFrame window) {
 		this.window = window;
@@ -43,14 +54,70 @@ public class BaseballGamePanel {
 		JPanel southPanel = new JPanel();
 		southPanel.setLayout(new GridLayout(4, 3));
 
+		BaseballKeyListener keyListener = new BaseballKeyListener(this);
+
 		digitButtons = new JButton[10];
 		for (int i = 0; i < 10; i++) {
 			digitButtons[i] = new JButton("" + i);
+			digitButtons[i].addActionListener(keyListener);
 			southPanel.add(digitButtons[i]);
 		}
+		playButton.addActionListener(keyListener);
+		exitButton.addActionListener(keyListener);
 		southPanel.add(playButton);
 		southPanel.add(exitButton);
 		cp.add(BorderLayout.SOUTH, southPanel);
+
+		for (var b : digitButtons) {
+			b.setEnabled(false);
+		}
 	}
 
+	public BaseballGame getBaseballGame() {
+		return baseball;
+	}
+
+	public JFrame getWindow() {
+		return window;
+	}
+
+	public BaseballCanvas getCanvas() {
+		return canvas;
+	}
+
+	public JTextField getGameKeyField() {
+		return gameKeyField;
+	}
+
+	public JTextField getGuessField() {
+		return guessField;
+	}
+
+	public JButton[] getDigitButtons() {
+		return digitButtons;
+	}
+
+	public JButton getPlayButton() {
+		return playButton;
+	}
+
+	public JButton getExitButton() {
+		return exitButton;
+	}
+
+	public GameState getGameState() {
+		return gameState;
+	}
+
+	public void setGameState(GameState state) {
+		this.gameState = state;
+	}
+
+	public BaseballGame getBaseball() {
+		return baseball;
+	}
+
+	public void setBaseball(BaseballGame baseball) {
+		this.baseball = baseball;
+	}
 }
