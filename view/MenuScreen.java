@@ -37,7 +37,7 @@ public class MenuScreen {
 
 		drawingButton.addActionListener(event -> {
 			window.getContentPane().removeAll();
-			var panel = new BaseballGamePanel(window);
+			var panel = new TriangleDrawingPanel(window);
 			panel.init();
 			window.pack();
 			window.setVisible(true);
